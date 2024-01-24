@@ -1,6 +1,15 @@
-def print_hi(name):
-    print(f'Hi, {name}')
-
+from terminal.log import Log
+from terminal.main_menu import MainMenu
+from image.image_viewer import ImageViewer
 
 if __name__ == '__main__':
-    print_hi('PyCharm')
+
+    log = Log('Main')
+    log.info("Program starting")
+
+    cm = MainMenu()
+
+    iv = ImageViewer('images/hs_1.jpg')
+    iv.show_image()
+
+
