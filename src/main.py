@@ -1,6 +1,6 @@
 from terminal.log import Log
 from terminal.main_menu import MainMenu
-from image.image_viewer import ImageViewer
+from image.image import Image
 
 if __name__ == '__main__':
 
@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     cm = MainMenu()
 
-    iv = ImageViewer('images/hs_1.jpg')
-    iv.show_image()
+    img = Image('images/hs_1.jpg')
+    img.show_image()
 
 
