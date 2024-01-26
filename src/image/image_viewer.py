@@ -17,12 +17,10 @@ class ImageViewer:
 
     def show_image(self):
         if self._img is not None:
-            cv.imshow(self.WINDOW_NAME, self._img)
+            cv.imshow(self.WINDOW_NAME, self._img.get_img())
             self._log.info(f"Showing image window and waiting for user key input to close the window.")
             cv.waitKey(0)  # TODO how can I manage the input?
             cv.destroyWindow(self.WINDOW_NAME)
             self._log.info("Window closed.")
         else:
             self._log.error("Image not found!")
-
-    img = property(get_img, set_img)

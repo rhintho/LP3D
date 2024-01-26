@@ -11,4 +11,5 @@ if __name__ == '__main__':
     log.info(img)
 
     nn_tech = NearestNeighbor()
-    nn_tech.resize(img.get_img())
+    new_img = nn_tech.resize(img)
+    new_img.show_image()

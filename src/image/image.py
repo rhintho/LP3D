@@ -1,3 +1,4 @@
+import os
 import cv2 as cv
 import numpy as np
 from terminal.log import Log
@@ -8,6 +9,7 @@ class Image:
 
     def __init__(self, img_path: str):
         self._log = Log(self.__class__.__name__)
+        self._name = os.path.basename(img_path)
         self._img = cv.imread(img_path)
         self._px = 0
         self._py = 0
@@ -16,7 +18,7 @@ class Image:
         self._rois = {}
 
     def show_image(self):
-        iv = ImageViewer(self._img)
+        iv = ImageViewer(self)
         iv.show_image()
 
     def get_shape(self):
@@ -58,24 +60,11 @@ class Image:
     def set_img(self, img):
         self._img = img
 
-    # def set_roi(self, x1: int, y1: int, x2: int, y2: int, name: str):
-    #     roi = self._img[x1:y1, x2:y2]
-    #     self._log.debug(roi)
-    #     self._rois.update({name: roi})
-    #     return roi
-    #
-    # def get_roi_list(self) -> [str]:
-    #     return self._rois
-    #
-    # def get_roi(self, name: str):
-    #     return self._rois[name]
-    #
-    # def save_roi(self, name: str):
-    #     self._log.debug(self.get_roi(name))
-    #     cv.imwrite(f"images/{name}.jpg", self._rois[name])
+    def save_image(self, img_path):
+        cv.imwrite(img_path, self._img)
 
     def __str__(self):
-        return (f"Image width {self._width} and height {self._height}, "
+        return (f"Image \"{self._name}\" with width {self._width} and height {self._height}, "
                 f"Image size {self._img.size}, Image channels: {self.get_channels()}")
 
     def __repr__(self):
