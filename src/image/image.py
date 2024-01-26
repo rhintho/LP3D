@@ -60,7 +60,8 @@ class Image:
     def set_img(self, img):
         self._img = img
 
-    def save_image(self, img_path):
+    def save(self, img_path):
+        self._log.debug(f"Saving image to {img_path}")
         cv.imwrite(img_path, self._img)
 
     def __str__(self):

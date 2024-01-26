@@ -7,5 +7,5 @@ class SuperResolution:
         pass
 
     @abstractmethod
-    def resize(self, image):
+    def resize(self, image, scale_factor):
         pass

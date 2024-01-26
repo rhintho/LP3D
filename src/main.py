@@ -1,15 +1,21 @@
+from app_manager import AppManager
+from terminal.argument_handler import ArgumentHandler
 from terminal.log import Log
 from image.image import Image
 from image.super_res_image.nearest_neighbor import NearestNeighbor
 
 if __name__ == '__main__':
     log = Log('Main')
-    log.info("Program starting")
+    log.info("LP3D program starting")
 
-    log.info("Create image instance.")
-    img = Image('images/hs_1.jpg')
-    log.info(img)
+    ah = ArgumentHandler()
+    ah.parse_args()
+    ah.log_arguments()
+    args = ah.get_args()
 
-    nn_tech = NearestNeighbor()
-    new_img = nn_tech.resize(img)
-    new_img.show_image()
+    app = AppManager()
+    app.start_processing(args)
+
+
+    log.info(f"LP3D terminated.")
+
