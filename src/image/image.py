@@ -90,7 +90,7 @@ class Image:
 
     def save(self):
         self._log.debug(f"Saving image to {self._dirpath} + / + {self._filename}")
-        cv.imwrite(os.path.join(self._dirpath, self._filename), self._img)
+        cv.imwrite(str(os.path.join(self._dirpath, self._filename)), self._img)
 
     def __str__(self):
         return (f"Image \"{self._filename}\" with width {self._width} and height {self._height}, "

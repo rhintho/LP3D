@@ -6,7 +6,7 @@ from image.image import Image
 from terminal.log import Log
 
 
-class Linear(SuperResolution, ABC):
+class Bicubic(SuperResolution, ABC):
 
     def __init__(self):
         super().__init__()
@@ -16,11 +16,11 @@ class Linear(SuperResolution, ABC):
         scaled_width: int = self.calc_new_width(original_image.get_width(), scaling_factor)
         scaled_height: int = self.calc_new_height(original_image.get_height(), scaling_factor)
         new_image = self._resize_cv(original_image, scaled_width, scaled_height)
-        new_image.extend_filename(f"_sr_linear_fac_{scaling_factor}")
+        new_image.extend_filename(f"_sr_cubic_fac_{scaling_factor}")
         return new_image
 
     def _resize_cv(self, original_image: Image, new_width: int, new_height: int) -> Image:
-        res = cv.resize(original_image.get_img(), (new_width, new_height), interpolation=cv.INTER_LINEAR)
+        res = cv.resize(original_image.get_img(), (new_width, new_height), interpolation=cv.INTER_CUBIC)
         new_image = Image()
         new_image.set_img(res)
         new_image.set_dir_path(original_image.get_dir_path())

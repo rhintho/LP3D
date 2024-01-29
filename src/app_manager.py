@@ -1,6 +1,8 @@
 import os
 
 from image.image import Image
+from image.super_res_image.bicubic import Bicubic
+from image.super_res_image.bilinear import Bilinear
 from image.super_res_image.nearest_neighbor import NearestNeighbor
 from terminal.log import Log
 
@@ -25,22 +27,23 @@ class AppManager:
 
     def select_method(self, img_dir, img_list, args):
         if args.method == 'nearest-neighbor':
-            self.process_neares_neighbor_scaling(img_dir, img_list, args.factor)
-        elif args.method == 'linear':
-            pass
-        elif args.method == 'cubic':
-            pass
+            nn = NearestNeighbor()
+            self.processing_super_resolution(img_dir, img_list, args.factor, nn)
+        elif args.method == 'bilinear':
+            bilinear = Bilinear()
+            self.processing_super_resolution(img_dir, img_list, args.factor, bilinear)
+        elif args.method == 'bicubic':
+            bicubic = Bicubic()
+            self.processing_super_resolution(img_dir, img_list, args.factor, bicubic)
         elif args.method == 'lanczos':
             pass
 
-    def process_neares_neighbor_scaling(self, img_dir, img_list, scale_factor):
-        nn = NearestNeighbor()
+    def processing_super_resolution(self, img_dir, img_list, scale_factor, method_obj):
         for img_filename in img_list:
             img = Image()
             img.load_image(self._get_image_path(img_dir, img_filename))
             self._log.debug(f"Loaded {img}")
-
-            img = nn.resize(img, int(scale_factor))
+            img = method_obj.resize(img, int(scale_factor))
             img.save()
 
     def _get_image_path(self, img_dir, img_filename):
