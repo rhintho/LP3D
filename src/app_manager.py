@@ -26,16 +26,25 @@ class AppManager:
     def select_method(self, img_dir, img_list, args):
         if args.method == 'nearest-neighbor':
             self.process_neares_neighbor_scaling(img_dir, img_list, args.factor)
+        elif args.method == 'linear':
+            pass
+        elif args.method == 'cubic':
+            pass
+        elif args.method == 'lanczos':
+            pass
 
     def process_neares_neighbor_scaling(self, img_dir, img_list, scale_factor):
         nn = NearestNeighbor()
-        for img_file in img_list:
-            img = Image(str(os.path.join(img_dir, img_file)))
+        for img_filename in img_list:
+            img = Image()
+            img.load_image(self._get_image_path(img_dir, img_filename))
             self._log.debug(f"Loaded {img}")
+
             img = nn.resize(img, int(scale_factor))
-            filename, ext = os.path.splitext(img_file)
-            filename = filename + f"_sr_nn_fac_{scale_factor}" + ext
-            img.save(os.path.join(img_dir, filename))
+            img.save()
+
+    def _get_image_path(self, img_dir, img_filename):
+        return str(os.path.join(img_dir, img_filename))
 
     def get_file_information(self, path):
         img_list = []

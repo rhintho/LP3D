@@ -1,8 +1,13 @@
 import logging
-import os
 
 
-class Log:
+class Log(object):
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Log, cls).__new__(cls)
+        return cls._instance
 
     def __init__(self, name, level=logging.DEBUG, log_file="lp3d.log"):
         self._logger = logging.getLogger(name)
@@ -31,4 +36,3 @@ class Log:
 
     def error(self, message):
         self._logger.error(message)
-
