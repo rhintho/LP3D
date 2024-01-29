@@ -17,6 +17,8 @@ class AppManager:
     def start_processing(self, args):
         if args.module == 'super-res':
             self.prepare_super_res_process(args)
+        elif args.module == 'frame-ext':
+            pass  # TODO here implement frame extractor
         else:
             self._log.error("Something went wrong with module argument.")
 
