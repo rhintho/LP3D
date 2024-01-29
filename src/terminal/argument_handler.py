@@ -32,7 +32,7 @@ class ArgumentHandler:
         self._parser.add_argument('-p', '--path', help='Selecting image file or folder for processing.')
         self._parser.add_argument('-fac', '--factor', help='Defining scaling factor for super resolution.')
         self._parser.add_argument('-m', '--method', help='Selecting method for super resolution process.',
-                                  choices=['nearest-neighbor', 'bilinear', 'bicubic'])
+                                  choices=['nearest-neighbor', 'bilinear', 'bicubic', 'lanczos'])
 
     def check_arguments(self):
         pass  # TODO Error handling for arguments missing

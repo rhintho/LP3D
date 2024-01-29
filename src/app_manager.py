@@ -3,6 +3,7 @@ import os
 from image.image import Image
 from image.super_res_image.bicubic import Bicubic
 from image.super_res_image.bilinear import Bilinear
+from image.super_res_image.lanczos import Lanczos
 from image.super_res_image.nearest_neighbor import NearestNeighbor
 from terminal.log import Log
 
@@ -36,7 +37,8 @@ class AppManager:
             bicubic = Bicubic()
             self.processing_super_resolution(img_dir, img_list, args.factor, bicubic)
         elif args.method == 'lanczos':
-            pass
+            lanczos = Lanczos()
+            self.processing_super_resolution(img_dir, img_list, args.factor, lanczos)
 
     def processing_super_resolution(self, img_dir, img_list, scale_factor, method_obj):
         for img_filename in img_list:
