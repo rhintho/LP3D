@@ -6,6 +6,7 @@ from image.super_res_image.bilinear import Bilinear
 from image.super_res_image.lanczos import Lanczos
 from image.super_res_image.nearest_neighbor import NearestNeighbor
 from terminal.log import Log
+from video.frame_extractor import FrameExtractor
 
 
 class AppManager:
@@ -18,7 +19,7 @@ class AppManager:
         if args.module == 'super-res':
             self.prepare_super_res_process(args)
         elif args.module == 'frame-ext':
-            pass  # TODO here implement frame extractor
+            self.prepare_frame_extraction(args)
         else:
             self._log.error("Something went wrong with module argument.")
 
@@ -27,6 +28,12 @@ class AppManager:
         img_dir, img_list = self.get_file_information(args.path.replace("'", ""))
         self._log.debug(f"Dir path: {img_dir}, Image list: {img_list}")
         self.select_method(img_dir, img_list, args)
+
+    def prepare_frame_extraction(self, args):
+        self._log.info("Starting frame extraction process.")
+        dir_path = args.path.replace("'", "")
+        frame_count = args.factor
+        self.processing_frame_extraction(dir_path, frame_count)
 
     def select_method(self, img_dir, img_list, args):
         if args.method == 'nearest-neighbor':
@@ -66,3 +73,7 @@ class AppManager:
             dir_path, filename = os.path.split(path)
             img_list.append(filename)
         return dir_path, img_list
+
+    def processing_frame_extraction(self, dir_path, frame_count):
+        frame_ext = FrameExtractor(dir_path, frame_count)
+        frame_ext.process_frame_extraction()
