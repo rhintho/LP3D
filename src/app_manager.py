@@ -3,6 +3,9 @@ import os
 from image.image import Image
 from image.super_res_image.bicubic import Bicubic
 from image.super_res_image.bilinear import Bilinear
+from image.super_res_image.edsr import EDSR
+from image.super_res_image.espcn import ESPCN
+from image.super_res_image.fsrcnn import FSRCNN
 from image.super_res_image.lanczos import Lanczos
 from image.super_res_image.lap_srn import LapSRN
 from image.super_res_image.nearest_neighbor import NearestNeighbor
@@ -49,6 +52,15 @@ class AppManager:
         elif args.method == 'lanczos':
             lanczos = Lanczos()
             self.processing_super_resolution(img_dir, img_list, args.factor, lanczos)
+        elif args.method == 'edsr':
+            edsr = EDSR()
+            self.processing_super_resolution(img_dir, img_list, args.factor, edsr)
+        elif args.method == 'espcn':
+            espcn = ESPCN()
+            self.processing_super_resolution(img_dir, img_list, args.factor, espcn)
+        elif args.method == 'fsrcnn':
+            fsrcnn = FSRCNN()
+            self.processing_super_resolution(img_dir, img_list, args.factor, fsrcnn)
         elif args.method == 'lapsrn':
             lapsrn = LapSRN()
             self.processing_super_resolution(img_dir, img_list, args.factor, lapsrn)
@@ -66,7 +78,7 @@ class AppManager:
 
     def get_file_information(self, path):
         img_list = []
-        dir_path = ""
+        # dir_path = ""
         if os.path.isdir(path):
             dir_path = path
             for file in os.listdir(path):
