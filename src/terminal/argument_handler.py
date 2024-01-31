@@ -27,12 +27,13 @@ class ArgumentHandler:
         return self._args
 
     def add_super_resolution_args(self):
-        self._parser.add_argument('module', help='Choosing module for image processing.',
+        self._parser.add_argument('module', help='Choosed module for image processing.',
                                   choices=['super-res', 'feature-detection', 'frame-ext'])
-        self._parser.add_argument('-p', '--path', help='Selecting image file or folder for processing.')
-        self._parser.add_argument('-fac', '--factor', help='Defining scaling factor for super resolution.')
-        self._parser.add_argument('-m', '--method', help='Selecting method for super resolution process.',
+        self._parser.add_argument('-p', '--path', help='Selected image file or folder for processing.')
+        self._parser.add_argument('-fac', '--factor', help='Defined scaling factor for super resolution.')
+        self._parser.add_argument('-m', '--method', help='Selected method for super resolution process.',
                                   choices=['nearest-neighbor', 'bilinear', 'bicubic', 'lanczos'])
+        self._parser.add_argument('-t', '--target', help='Selected dir for saving processed images.')
 
     def check_arguments(self):
         pass  # TODO Error handling for arguments missing
