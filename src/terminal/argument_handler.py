@@ -32,7 +32,7 @@ class ArgumentHandler:
         self._parser.add_argument('-p', '--path', help='Selected image file or folder for processing.')
         self._parser.add_argument('-fac', '--factor', help='Defined scaling factor for super resolution.')
         self._parser.add_argument('-m', '--method', help='Selected method for super resolution process.',
-                                  choices=['nearest-neighbor', 'bilinear', 'bicubic', 'lanczos'])
+                                  choices=['nearest-neighbor', 'bilinear', 'bicubic', 'lanczos', 'lapsrn'])
         self._parser.add_argument('-t', '--target', help='Selected dir for saving processed images.')
 
     def check_arguments(self):

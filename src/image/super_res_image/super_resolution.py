@@ -12,9 +12,9 @@ class SuperResolution:
     def resize(self, image, scale_factor) -> Image:
         pass
 
-    @abstractmethod
-    def create_file_name(self) -> str:
-        pass
+    # @abstractmethod
+    # def create_file_name(self) -> str:
+    #     pass
 
     def calc_new_width(self, original_width: int, scaling_factor: int) -> int:
         return original_width * scaling_factor
