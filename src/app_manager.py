@@ -1,6 +1,7 @@
 import os
 
 from image.image import Image
+from image.super_res_image.area_relation import AreaRelation
 from image.super_res_image.bicubic import Bicubic
 from image.super_res_image.bilinear import Bilinear
 from image.super_res_image.edsr import EDSR
@@ -24,6 +25,8 @@ class AppManager:
             self.prepare_super_res_process(args)
         elif args.module == 'frame-ext':
             self.prepare_frame_extraction(args)
+        elif args.module == 'shrink':
+            self.prepare_shrinking(args)
         else:
             self._log.error("Something went wrong with module argument.")
 
@@ -38,6 +41,11 @@ class AppManager:
         dir_path = args.path.replace("'", "")
         frame_count = args.factor
         self.processing_frame_extraction(dir_path, frame_count)
+
+    def prepare_shrinking(self, args):
+        self._log.info("Starting shrink process.")
+        img_dir, img_list = self.get_file_information(args.path.replace("'", ""))
+        self.processing_shrink(img_dir, img_list, args)
 
     def select_method(self, img_dir, img_list, args):
         if args.method == 'nearest-neighbor':
@@ -69,8 +77,17 @@ class AppManager:
         for img_filename in img_list:
             img = Image()
             img.load_image(self._get_image_path(img_dir, img_filename))
-            self._log.debug(f"Loaded {img}")
+            self._log.info(f"Loaded {img}")
             img = method_obj.resize(img, int(scale_factor))
+            img.save()
+
+    def processing_shrink(self, img_dir, img_list, args):
+        area = AreaRelation()
+        for img_filename in img_list:
+            img = Image()
+            img.load_image(self._get_image_path(img_dir, img_filename))
+            self._log.info(f"Loaded {img}")
+            img = area.resize(img)
             img.save()
 
     def _get_image_path(self, img_dir, img_filename):

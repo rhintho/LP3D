@@ -28,7 +28,7 @@ class ArgumentHandler:
 
     def add_super_resolution_args(self):
         self._parser.add_argument('module', help='Choosed module for image processing.',
-                                  choices=['super-res', 'feature-detection', 'frame-ext'])
+                                  choices=['super-res', 'feature-detection', 'frame-ext', 'shrink'])
         self._parser.add_argument('-p', '--path', help='Selected image file or folder for processing.')
         self._parser.add_argument('-fac', '--factor', help='Defined scaling factor for super resolution.')
         self._parser.add_argument('-m', '--method', help='Selected method for super resolution process.',
