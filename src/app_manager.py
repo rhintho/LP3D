@@ -1,7 +1,7 @@
 import os
 
 from image.image import Image
-from image.super_res_image.area_relation import AreaRelation
+from eva.area_relation import AreaRelation
 from image.super_res_image.bicubic import Bicubic
 from image.super_res_image.bilinear import Bilinear
 from image.super_res_image.edsr import EDSR
